@@ -1,6 +1,5 @@
 import random
 
-
 class Produto:
     def __init__(self, nome, valor, serial):
         self._nome = nome
@@ -11,25 +10,21 @@ class Produto:
         key = random.randint(100000, 199999)
         self._serial = key * base
 
-
 class Quadrinho(Produto):
     def __init__(self, valor, autor, editora):
         super().__init__('Quadrinho', valor, 7)
         self._autor = autor
         self._editora = editora
 
-
 class Caneca(Produto):
     def __init__(self, valor, capacidade):
         super().__init__('Caneca', valor, 5)
         self._capacidade = capacidade
 
-
 class Camisa(Produto):
     def __init__(self, valor, tamanho):
         super().__init__('Camisa', valor, 3)
         self._tamanho = tamanho
-
 
 def remover_produto_por_serial(sacola, serial_produto):
     for produto in sacola:
@@ -60,15 +55,12 @@ def tratar_float(mensagem):
         except:
             print("Entrada inválida")
 
-
-
 def tratar_tamanho_invalido():
     tamanho = input("P,M ou G? ").upper().strip()
     if tamanho not in ['P', 'M', 'G']:
         print("Tamanho inválido")
         tamanho = tratar_tamanho_invalido()
     return tamanho
-
 
 def tratar_quantidade_invalida():
     while True:
@@ -100,7 +92,7 @@ def promocoes(arr):
     quadrinhos = sorted(quadrinhos, key=lambda x: x._valor)
     
     while camisas >= 4:
-        novo_produto = Caneca("promocao", 0.5)
+        novo_produto = Caneca("Promoção", 0.5)
         arr.extend([novo_produto])
         camisas -= 4
     
@@ -112,8 +104,7 @@ def promocoes(arr):
 
     for p in arr:
         if p._serial in quadrinhos_id:
-            p._valor = "Promocao"
-
+            p._valor = "Promoção"
 
 # Programa em si
 sacola = []
@@ -126,7 +117,7 @@ while True:
         2) Remover produto
         3) Finalizar compras
         """)
-        # opcao = tratar_opcao("")
+
         opcao = int(input("Digite a opção: ").strip())
 
         if opcao == 1:
