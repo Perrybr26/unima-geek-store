@@ -81,6 +81,40 @@ def tratar_quantidade_invalida():
         except:
             print("Quantidade inválida")
 
+def promocoes(arr):
+    camisas = 0
+    canecas = 0
+    quadrinhos = []
+    quadrinhos_contador = 0
+    quadrinhos_id = []
+
+    for p in arr:
+        if p._nome == "Camisa":
+            camisas += 1
+        elif p._nome == "Caneca":
+            canecas += 1
+        else:
+            quadrinhos.append(p)
+            quadrinhos_contador += 1
+
+    quadrinhos = sorted(quadrinhos, key=lambda x: x._valor)
+    
+    while camisas >= 4:
+        novo_produto = Caneca("promocao", 0.5)
+        arr.extend([novo_produto])
+        camisas -= 4
+    
+    while quadrinhos_contador >= 5:
+        quadrinhos_id.append(quadrinhos[0]._serial)
+        quadrinhos.pop(0)
+
+        quadrinhos_contador -= 5
+
+    for p in arr:
+        if p._serial in quadrinhos_id:
+            p._valor = "Promocao"
+
+
 # Programa em si
 sacola = []
 compras_total = []
@@ -157,15 +191,17 @@ while True:
                 print("Produtos na sacola:")
 
                 compras_total = sorted(compras_total, key=lambda x: x._valor)
+                promocoes(compras_total)
                 for i, produto in enumerate(compras_total, start=1):
                     if produto._nome == "Caneca":
-                        print(f"{i}) {produto._serial} - {produto._nome}, {produto._capacidade} ... {produto._valor}")
+                        print(f"{i}) {produto._serial} - {produto._nome} de {produto._capacidade}L ... {produto._valor}")
                     elif produto._nome == "Camisa":
-                        print(f"{i}) {produto._serial} - {produto._nome}, {produto._tamanho} ... {produto._valor}")
+                        print(f"{i}) {produto._serial} - {produto._nome} {produto._tamanho} ... {produto._valor}")
                     else:
                         print(f"{i}) {produto._serial} - {produto._nome}, {produto._autor} | {produto._editora} ... {produto._valor}")
 
-                    valor_total += produto._valor
+                    if type(produto._valor) == float:
+                        valor_total += produto._valor
 
                 valor_total = "{:.2f}".format(valor_total)
                 print(f"Valor total: {valor_total}")
