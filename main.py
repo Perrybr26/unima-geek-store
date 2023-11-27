@@ -155,10 +155,19 @@ while True:
             else:
                 valor_total = 0
                 print("Produtos na sacola:")
+
+                compras_total = sorted(compras_total, key=lambda x: x._valor)
                 for i, produto in enumerate(compras_total, start=1):
-                    print(f"{i}) {produto._serial} - {produto._nome} ... {produto._valor}")
+                    if produto._nome == "Caneca":
+                        print(f"{i}) {produto._serial} - {produto._nome}, {produto._capacidade} ... {produto._valor}")
+                    elif produto._nome == "Camisa":
+                        print(f"{i}) {produto._serial} - {produto._nome}, {produto._tamanho} ... {produto._valor}")
+                    else:
+                        print(f"{i}) {produto._serial} - {produto._nome}, {produto._autor} | {produto._editora} ... {produto._valor}")
+
                     valor_total += produto._valor
 
+                valor_total = "{:.2f}".format(valor_total)
                 print(f"Valor total: {valor_total}")
 
             break
