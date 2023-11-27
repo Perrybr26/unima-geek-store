@@ -38,17 +38,32 @@ def remover_produto_por_serial(sacola, serial_produto):
             return True
     return False
 
+def tratar_opcao(mensagem):
+    while True:
+        try:
+            entrada = int(input(mensagem).strip())
+            if entrada < 1 or entrada > 3:
+                # print("Opção inválida")
+                entrada = tratar_opcao_produto(mensagem)
+            return entrada
+            break
+        except:
+            print("Opção inválida")
 
-def tratar_entrada_negativa(mensagem):
-    entrada = float(input(mensagem))
-    if entrada <= 0:
-        print("Entrada inválida")
-        entrada = tratar_entrada_negativa(mensagem)
-    return entrada
+def tratar_float(mensagem):
+    while True:
+        try:
+            entrada = float(input(mensagem).strip())
+            if entrada <= 0:
+                entrada = tratar_valor(mensagem)
+            return entrada
+        except:
+            print("Entrada inválida")
+
 
 
 def tratar_tamanho_invalido():
-    tamanho = input("P,M ou G? ").upper()
+    tamanho = input("P,M ou G? ").upper().strip()
     if tamanho not in ['P', 'M', 'G']:
         print("Tamanho inválido")
         tamanho = tratar_tamanho_invalido()
@@ -56,11 +71,15 @@ def tratar_tamanho_invalido():
 
 
 def tratar_quantidade_invalida():
-    quantidade = int(input("Informe a quantidade desejada: "))
-    if quantidade < 0:
-        print("Quantidade inválida")
-        quantidade = tratar_quantidade_invalida()
-    return quantidade
+    while True:
+        try:    
+            quantidade = int(input("Informe a quantidade desejada: ").strip())
+            if quantidade <= 0:
+                print("Quantidade inválida")    
+                quantidade = tratar_quantidade_invalida()
+            return quantidade
+        except:
+            print("Quantidade inválida")
 
 # Programa em si
 sacola = []
@@ -73,15 +92,16 @@ while True:
         2) Remover produto
         3) Finalizar compras
         """)
-        opcao = int(input("Digite a opção: "))
+        # opcao = tratar_opcao("")
+        opcao = int(input("Digite a opção: ").strip())
 
         if opcao == 1:
             print("Produtos disponíveis: ")
             print("1) Quadrinhos")
             print("2) Camisas")
             print("3) Canecas")
-            opcao_produto = int(input("Digite o código do produto: "))
-            valor = tratar_entrada_negativa("Digite o preço do produto: ")
+            opcao_produto = tratar_opcao("Digite o código do produto: ")
+            valor = tratar_float("Digite o preço do produto: ")
             quantidade = tratar_quantidade_invalida()
 
             if opcao_produto == 1:
@@ -102,7 +122,7 @@ while True:
                 opcao_produto = "CAMISA"
 
             elif opcao_produto == 3:
-                capacidade = tratar_entrada_negativa("Capacidade da caneca (litros): ")
+                capacidade = tratar_float("Capacidade da caneca (litros): ")
                 for i in range(quantidade):
                     produto = Caneca(valor, capacidade)
                     compras_total.extend([produto])
