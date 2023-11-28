@@ -41,9 +41,8 @@ def tratar_opcao(mensagem):
                 # print("Opção inválida")
                 entrada = tratar_opcao_produto(mensagem)
             return entrada
-            break
-        except:
-            print("Opção inválida")
+        except ValueError:
+            print("Entrada inválida")
 
 def tratar_float(mensagem):
     while True:
@@ -52,7 +51,7 @@ def tratar_float(mensagem):
             if entrada <= 0:
                 entrada = tratar_valor(mensagem)
             return entrada
-        except:
+        except ValueError:
             print("Entrada inválida")
 
 def tratar_tamanho_invalido():
@@ -70,8 +69,8 @@ def tratar_quantidade_invalida():
                 print("Quantidade inválida")    
                 quantidade = tratar_quantidade_invalida()
             return quantidade
-        except:
-            print("Quantidade inválida")
+        except ValueError:
+            print("Entrada inválida")
 
 def promocoes(arr):
     camisas = 0
