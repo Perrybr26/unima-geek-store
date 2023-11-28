@@ -38,8 +38,8 @@ def tratar_opcao(mensagem):
         try:
             entrada = int(input(mensagem).strip())
             if entrada < 1 or entrada > 3:
-                # print("Opção inválida")
-                entrada = tratar_opcao_produto(mensagem)
+                print("Opção Inválida")
+                continue
             return entrada
         except ValueError:
             print("Entrada inválida")
@@ -49,13 +49,14 @@ def tratar_float(mensagem):
         try:
             entrada = float(input(mensagem).strip())
             if entrada <= 0:
-                entrada = tratar_valor(mensagem)
+                print("Entrada inválida")
+                continue
             return entrada
         except ValueError:
             print("Entrada inválida")
 
 def tratar_tamanho_invalido():
-    tamanho = input("P,M ou G? ").upper().strip()
+    tamanho = input("P, M ou G? ").upper().strip()
     if tamanho not in ['P', 'M', 'G']:
         print("Tamanho inválido")
         tamanho = tratar_tamanho_invalido()
@@ -67,7 +68,7 @@ def tratar_quantidade_invalida():
             quantidade = int(input("Informe a quantidade desejada: ").strip())
             if quantidade <= 0:
                 print("Quantidade inválida")    
-                quantidade = tratar_quantidade_invalida()
+                continue
             return quantidade
         except ValueError:
             print("Entrada inválida")
@@ -110,14 +111,13 @@ sacola = []
 compras_total = []
 
 while True:
-    try:
         print("""Escolha o que deseja fazer:
         1) Adicionar produto
         2) Remover produto
         3) Finalizar compras
         """)
 
-        opcao = int(input("Digite a opção: ").strip())
+        opcao = tratar_opcao("Digite a opção: ")
 
         if opcao == 1:
             print("Produtos disponíveis: ")
@@ -152,10 +152,6 @@ while True:
                     compras_total.extend([produto])
 
                 opcao_produto = "CANECA"
-
-            else:
-                print("Produto não existe!")
-                continue
 
             print(f"{quantidade} {opcao_produto}(s) adicionado(s) ao carrinho.")
 
@@ -197,8 +193,3 @@ while True:
                 print(f"Valor total: {valor_total}")
 
             break
-
-        else:
-            print("Opção Inválida")
-    except ValueError:
-        print("Entrada inválida")
