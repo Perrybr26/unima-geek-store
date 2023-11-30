@@ -75,7 +75,6 @@ def tratar_quantidade_invalida():
 
 def promocoes(arr):
     camisas = 0
-    canecas = 0
     quadrinhos = []
     quadrinhos_contador = 0
     quadrinhos_id = []
@@ -83,9 +82,7 @@ def promocoes(arr):
     for p in arr:
         if p._nome == "Camisa":
             camisas += 1
-        elif p._nome == "Caneca":
-            canecas += 1
-        else:
+        elif p._nome == "Quadrinho":
             quadrinhos.append(p)
             quadrinhos_contador += 1
 
