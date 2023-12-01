@@ -18,12 +18,12 @@ class Quadrinho(Produto):
 
 class Caneca(Produto):
     def __init__(self, valor, capacidade):
-        super().__init__('Caneca', valor, 5)
+        super().__init__('Caneca', valor, 3)
         self._capacidade = capacidade
 
 class Camisa(Produto):
     def __init__(self, valor, tamanho):
-        super().__init__('Camisa', valor, 3)
+        super().__init__('Camisa', valor, 5)
         self._tamanho = tamanho
 
 def remover_produto_por_serial(sacola, serial_produto):
